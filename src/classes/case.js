@@ -4,4 +4,6 @@ export default class Case {
         this.agencies = agenciesList;
         this.demo = demographics;
     }
+
+    // Supporting methods to modify existing cases
 }

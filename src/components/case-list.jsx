@@ -1,48 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
 import { CaseListItem } from './case-list-item';
-import { Button } from '@material-ui/core';
+import { Radio, Grid } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCaseAction } from '../store/action/case-action';
 
 const useStyles = makeStyles({
     root: {
         position: 'fixed',
         top: '15vh',
-        left: '15vh',
-        minWidth: 275,
+        left: '50vh',
+        width: 450,
     },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
+    item: {
+        padding: 10,
     },
-    pos: {
-        marginBottom: 12,
+    radioBtn: {
+        fontSize: 30,
     },
 });
 
-export const CaseList = ({ caseNums }) => {
+export const CaseList = () => {
     const classes = useStyles();
-    const [checked, setChecked] = React.useState([0]);
+    const [checked, setChecked] = useState(-1);
+    const caseNums = useSelector((state) => state.caseReducer.caseNums);
+    const dispatch = useDispatch();
 
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-
-        setChecked(newChecked);
+    const handleToggle = (e) => {
+        setChecked(+e.target.value);
+        dispatch(selectCaseAction(+e.target.value));
     };
 
     return (
@@ -51,11 +40,18 @@ export const CaseList = ({ caseNums }) => {
                 <Typography color="textSecondary" gutterBottom variant="h4">
                     Case List
                 </Typography>
-                <List>
-                    {caseNums.map((caseNum) => (
+                {caseNums.map((caseNum) => (
+                    <Grid className={classes.item} container direction="row">
+                        <Radio
+                            checked={caseNum === checked}
+                            className={classes.radioBtn}
+                            value={caseNum}
+                            onChange={handleToggle}
+                        />
                         <CaseListItem caseNum={caseNum} />
-                    ))}
-                </List>
+                    </Grid>
+                ))}
+                {/* Would probably add a button here to add more cases using an action/Case Manager combo */}
             </CardContent>
         </Card>
     );

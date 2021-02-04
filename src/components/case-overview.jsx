@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { CaseList } from './case-list';
+import { AgencyList } from './agency-list';
 import { makeStyles } from '@material-ui/core';
 import store from '../store/store';
 import CaseManager from '../managers/case-manager';
@@ -16,7 +17,6 @@ const useStyles = makeStyles({
 
 export const CaseOverview = () => {
     const classes = useStyles();
-    const caseNums = useSelector((state) => state.caseReducer.caseNums);
 
     useEffect(() => {
         // Starting cases
@@ -45,6 +45,7 @@ export const CaseOverview = () => {
             ],
             'some demographics'
         );
+        CaseManager.addCase(52, [], 'some demographics');
     }, []);
 
     return (
@@ -57,7 +58,10 @@ export const CaseOverview = () => {
                     variant="h2">
                     Case Overview
                 </Typography>
-                <CaseList caseNums={caseNums} />
+                {/* Would probably wrap this in something to handle different screen sizes */}
+                <CaseList />
+                <AgencyList />
+                {/*  */}
             </div>
         </React.Fragment>
     );
