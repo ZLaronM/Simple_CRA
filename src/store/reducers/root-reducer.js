@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { caseReducer } from './case-reducer';
+import caseReducer from './case-reducer';
 
 const rootReducer = combineReducers({
     caseReducer: caseReducer,

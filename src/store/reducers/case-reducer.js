@@ -1,20 +1,21 @@
-import { SELECT_CASE, UPDATE_CASE } from '../action/case-action';
+import CaseManager from '../../managers/case-manager';
+import { SELECT_CASE, UPDATE_CASES } from '../action/case-action';
 
 const initialState = {
     selectedCase: -1,
-    cases: [],
+    caseNums: [],
 };
 
-export const caseReducer = (state = initialState, action) => {
+export default function caseReducer(state = initialState, action) {
     const nextState = { ...state };
 
     if (!action) {
         return nextState;
     }
 
-    switch (action) {
-        case UPDATE_CASE:
-            nextState.cases = action.payload;
+    switch (action.type) {
+        case UPDATE_CASES:
+            nextState.caseNums = CaseManager.getCaseNums();
             break;
         case SELECT_CASE:
             nextState.selectedCase = action.payload;
@@ -24,4 +25,4 @@ export const caseReducer = (state = initialState, action) => {
     }
 
     return nextState;
-};
+}

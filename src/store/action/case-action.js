@@ -1,9 +1,8 @@
-export const UPDATE_CASE = 'case';
+export const UPDATE_CASES = 'case';
 export const SELECT_CASE = 'selectCase';
 
-export const updateCaseAction = (caseNums) => ({
-    type: UPDATE_CASE,
-    payload: caseNums,
+export const updateCasesAction = (caseNums) => ({
+    type: UPDATE_CASES
 });
 
 export const selectCaseAction = (caseNum) => ({
