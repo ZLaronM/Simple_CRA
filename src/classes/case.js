@@ -1,7 +1,7 @@
 export default class Case {
-    constructor(agenciesList, caseNum, demographics) {
-        this.agencies = agenciesList;
+    constructor(caseNum, agenciesList = [], demographics = '') {
         this.caseNum = caseNum;
+        this.agencies = agenciesList;
         this.demo = demographics;
     }
 }

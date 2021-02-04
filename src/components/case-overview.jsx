@@ -1,29 +1,34 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import { CaseList } from './case-list';
-import Case from '../classes/case';
+import { makeStyles } from '@material-ui/core';
+import store from '../store/store';
+
+const useStyles = makeStyles({
+    container: {
+        height: '100%',
+        width: '100%',
+    },
+});
 
 export const CaseOverview = () => {
-    let cases = [];
-
-    useEffect(() => {
-        for (let i = 0; i < 3; i++) {
-            cases.push(new Case([], i, 'demographicsPlaceholder'));
-        }
-    }, []);
+    const classes = useStyles();
+    const cases = useSelector((state) => state.caseReducer.cases);
 
     return (
         <React.Fragment>
             <CssBaseline />
-            <Container>
+            <div className={classes.container}>
                 <Typography
                     component="div"
-                    style={{ backgroundColor: '#cfe8fc', height: '100vh' }}
-                />
+                    style={{ backgroundColor: '#3a3a3e', height: '100vh' }}
+                    variant="h2">
+                    Case Overview
+                </Typography>
                 <CaseList cases={cases} />
-            </Container>
+            </div>
         </React.Fragment>
     );
 };
